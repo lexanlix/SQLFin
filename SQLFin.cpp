@@ -1,10 +1,4 @@
-﻿#include "DataBase.h"
-#include "Functions.h"
-
-const int Nsumma = 2400;
-
-
-
+﻿#include "Functions.h"
 
 
 int main()
@@ -19,68 +13,75 @@ int main()
     list<string> AllMonths;
     vector<int> Money;            // Числа, обозначающие денюжки
 
-    DataBase DB1;
+    Functions F1;
 
-    DB1.Read(NamesRas, NamesDoh, Money, Months, Nsumma);
+    F1.SetNsumma();
 
-    /*Initialization(NamesRas, NamesDoh, Money, Months, AllMonths);
-    WriteTable(NamesRas, NamesDoh, Money, Months);
+    F1.Initialization(NamesRas, NamesDoh, Money, Months, AllMonths);
+    // Загрузка данных с БД и вывод в консоль - все тут сразу
+
+    
 
     int choice = 0;
     bool a = true;
     while (a)
     {
-        cout << "\n  Do you choice('1' to change some sum in the category, '2' to add category,\n'3' to change Cat Name,";
-        cout << "'4' to add new sum in the category, '5' to add month, '0 to exit'): ";
+        cout << "\n  Do your choice('1' to change some sum in the category, '2' to add category, '3' to delete category,";
+        cout << "\n'4' to change Cat Name, '5' to add new sum in the category, '6' to add month, '7' to write from DB, '0 to exit'): ";
         cin >> choice; cout << "\n";
 
         switch (choice)
         {
         case 1:
         {
-            cout << "\nWhat category value you want to change?\n";
-            int number;
-            cin >> number;
-            cout << "New value: ";
-            int NewValue;
-            cin >> NewValue;
-            InsertValue(Money, number, NewValue);
-            GetSums(NamesRas, NamesDoh, Money, Months);
-            WriteTable(NamesRas, NamesDoh, Money, Months);
+            F1.ChangeCellValue(NamesRas, NamesDoh);
+            // Без обновления vector Money
+            F1.WriteDataFromDB(NamesRas, NamesDoh, AllMonths);
             break;
         }
         case 2:
         {
-            AddCat(NamesRas, NamesDoh, Money, Months);
-            GetSums(NamesRas, NamesDoh, Money, Months);
-            WriteTable(NamesRas, NamesDoh, Money, Months);
+            F1.AddNewCategory(NamesRas, NamesDoh);
+            // Без обновления vector Money
+            F1.WriteDataFromDB(NamesRas, NamesDoh, AllMonths);
             break;
         }
         case 3:
         {
-            ChangeCatName(NamesRas, NamesDoh);
-            WriteTable(NamesRas, NamesDoh, Money, Months);
+            F1.DeleteCategory(NamesRas, NamesDoh);
+            F1.WriteDataFromDB(NamesRas, NamesDoh, AllMonths);
             break;
         }
         case 4:
         {
-            AddValue(Money);
-            GetSums(NamesRas, NamesDoh, Money, Months);
-            WriteTable(NamesRas, NamesDoh, Money, Months);
+            /*ChangeCatName(NamesRas, NamesDoh);
+            WriteTable(NamesRas, NamesDoh, Money, Months);*/
             break;
         }
         case 5:
         {
-            AddMonth(NamesRas, NamesDoh, Money, Months, AllMonths);
+            /*AddValue(Money);
             GetSums(NamesRas, NamesDoh, Money, Months);
-            WriteTable(NamesRas, NamesDoh, Money, Months);
+            WriteTable(NamesRas, NamesDoh, Money, Months);*/
+            break;
+        }
+        case 6:
+        {
+            F1.AddMonth(NamesRas, NamesDoh, Money, Months, AllMonths);
+            F1.GetSums(NamesRas, NamesDoh, Money, Months);
+            F1.WriteTable(NamesRas, NamesDoh, Money, Months);
+            break;
+        }
+        case 7:
+        {
+            F1.WriteDataFromDB(NamesRas, NamesDoh, AllMonths);
             break;
         }
         case 0:
             a = false;
             break;
         }
-    }*/
+    }
 
 
 
